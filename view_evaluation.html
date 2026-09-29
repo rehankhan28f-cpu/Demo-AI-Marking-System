@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>View Evaluation</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Header -->
+    <div class="bg-gray-950 text-white px-6 py-5">
+
+        <div class="max-w-6xl mx-auto">
+
+            <h1 class="text-2xl font-bold">
+                Evaluation Details
+            </h1>
+
+            <p class="text-gray-400 text-sm mt-1">
+                Completed Answer Sheet Evaluation
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto p-6">
+
+        <!-- Student Information -->
+        <div class="bg-white rounded-2xl border shadow-sm p-6">
+
+            <h2 class="text-xl font-semibold mb-5">
+                Student Information
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-5">
+
+                <div>
+                    <p class="text-sm text-gray-500">
+                        Student Name
+                    </p>
+
+                    <p class="font-semibold mt-1">
+                        {{ evaluation[0] }}
+                    </p>
+                </div>
+
+
+                <div>
+                    <p class="text-sm text-gray-500">
+                        Roll Number
+                    </p>
+
+                    <p class="font-semibold mt-1">
+                        {{ evaluation[1] }}
+                    </p>
+                </div>
+
+
+                <div>
+                    <p class="text-sm text-gray-500">
+                        Subject
+                    </p>
+
+                    <p class="font-semibold mt-1">
+                        {{ evaluation[2] }}
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Marks -->
+        <div class="bg-white rounded-2xl border shadow-sm p-6 mt-6">
+
+            <h2 class="text-xl font-semibold mb-5">
+                Marks Obtained
+            </h2>
+
+
+            <div class="grid md:grid-cols-3 gap-5">
+
+                {% for marks in question_marks %}
+
+                <div class="bg-gray-50 border rounded-xl p-5">
+
+                    <p class="text-sm text-gray-500">
+                        Question {{ loop.index }}
+                    </p>
+
+                    <p class="text-2xl font-bold mt-2">
+                        {{ marks }}
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Total -->
+            <div class="border-t mt-6 pt-6">
+
+                <p class="text-sm text-gray-500">
+                    Total Marks
+                </p>
+
+                <p class="text-4xl font-bold mt-2">
+                    {{ evaluation[6] }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Status -->
+        <div class="bg-white rounded-2xl border shadow-sm p-6 mt-6">
+
+            <div class="flex items-center justify-between">
+
+                <div>
+
+                    <h2 class="text-lg font-semibold">
+                        Evaluation Status
+                    </h2>
+
+                    <p class="text-gray-500 text-sm mt-1">
+                        This evaluation has been submitted successfully.
+                    </p>
+
+                </div>
+
+
+                <span class="bg-green-100 text-green-700 px-4 py-2 rounded-lg font-semibold">
+                    Completed
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Back Button -->
+        <a
+            href="/completed-copies"
+            class="inline-block mt-6 bg-gray-950 text-white px-5 py-3 rounded-lg hover:bg-gray-800">
+            ← Back to Completed Copies
+        </a>
+
+    </div>
+
+</body>
+
+</html>

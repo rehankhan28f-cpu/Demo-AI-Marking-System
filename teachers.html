@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers - AI Exam System</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="min-h-screen">
+
+        <!-- Header -->
+        <header class="bg-white border-b px-6 py-5 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">
+                    Teachers
+                </h1>
+                <p class="text-gray-500 text-sm mt-1">
+                    Manage university teachers and examiners
+                </p>
+            </div>
+
+            <a href="/university-dashboard"
+               class="bg-gray-900 text-white px-5 py-2.5 rounded-lg hover:bg-gray-800">
+                Dashboard
+            </a>
+        </header>
+
+
+        <!-- Main Content -->
+        <main class="p-6 max-w-6xl mx-auto">
+
+            <!-- Add Teacher -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border mb-6">
+
+                <h2 class="text-lg font-semibold mb-5">
+                    Add New Teacher
+                </h2>
+
+                <form method="POST"
+                      action="/teachers"
+                      class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                    <input
+                        type="text"
+                        name="teacher_name"
+                        placeholder="Teacher Name"
+                        class="border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-gray-400"
+                        required
+                    >
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Teacher Email"
+                        class="border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-gray-400"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        name="subject"
+                        placeholder="Subject"
+                        class="border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-gray-400"
+                        required
+                    >
+
+                    <div class="md:col-span-3">
+                        <button
+                            type="submit"
+                            class="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800">
+                            Add Teacher
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+
+            <!-- Teacher List -->
+            <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
+
+                <div class="p-6">
+                    <h2 class="text-lg font-semibold">
+                        Teacher List
+                    </h2>
+                </div>
+
+                <div class="overflow-x-auto">
+
+                    <table class="w-full text-left">
+
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-4 text-sm font-semibold">
+                                    ID
+                                </th>
+
+                                <th class="px-6 py-4 text-sm font-semibold">
+                                    Teacher Name
+                                </th>
+
+                                <th class="px-6 py-4 text-sm font-semibold">
+                                    Email
+                                </th>
+
+                                <th class="px-6 py-4 text-sm font-semibold">
+                                    Subject
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% if teachers %}
+
+                                {% for teacher in teachers %}
+
+                                <tr class="border-t">
+
+                                    <td class="px-6 py-4">
+                                        {{ teacher[0] }}
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        {{ teacher[1] }}
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        {{ teacher[2] }}
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        {{ teacher[3] }}
+                                    </td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <tr>
+                                    <td colspan="4"
+                                        class="text-center py-8 text-gray-500">
+                                        No teachers added yet.
+                                    </td>
+                                </tr>
+
+                            {% endif %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

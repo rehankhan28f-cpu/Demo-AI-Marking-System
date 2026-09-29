@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Sheets - AI Exam System</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="min-h-screen">
+
+        <!-- Header -->
+        <header class="bg-white border-b px-6 py-5 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">
+                    Answer Sheets
+                </h1>
+                <p class="text-gray-500 text-sm mt-1">
+                    Upload and manage student answer sheets
+                </p>
+            </div>
+
+            <a href="/university-dashboard"
+               class="bg-gray-900 text-white px-5 py-2.5 rounded-lg hover:bg-gray-800">
+                Dashboard
+            </a>
+        </header>
+
+
+        <!-- Main -->
+        <main class="p-6 max-w-6xl mx-auto">
+
+            <!-- Upload Answer Sheet -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border mb-6">
+
+                <h2 class="text-lg font-semibold mb-5">
+                    Upload Answer Sheet
+                </h2>
+
+                <form method="POST"
+                      action="/answer-sheets"
+                      enctype="multipart/form-data"
+                      class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <input
+                        type="text"
+                        name="student_name"
+                        placeholder="Student Name"
+                        class="border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-gray-400"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        name="roll_no"
+                        placeholder="Roll Number"
+                        class="border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-gray-400"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        name="subject"
+                        placeholder="Subject"
+                        class="border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-gray-400"
+                        required
+                    >
+                    <select
+                        name="teacher_id"
+                        class="border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-gray-400"
+                        required>
+                        <option value="">Select Teacher</option>
+
+                        {% for teacher in teachers %}
+                            <option value="{{ teacher[0] }}">
+                                {{ teacher[1] }} - {{ teacher[3] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <input
+                        type="file"
+                        name="answer_file"
+                        class="border rounded-lg px-4 py-3"
+                        required
+                    >
+
+                    <div class="md:col-span-2">
+
+                        <button
+                            type="submit"
+                            class="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800">
+                            Upload Answer Sheet
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- Answer Sheet List -->
+            <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
+
+                <div class="p-6">
+                    <h2 class="text-lg font-semibold">
+                        Answer Sheet List
+                    </h2>
+                </div>
+
+                <div class="overflow-x-auto">
+
+                    <table class="w-full text-left">
+
+                        <thead class="bg-gray-50">
+                            <tr>
+
+                                <th class="px-6 py-4 text-sm font-semibold">
+                                    ID
+                                </th>
+
+                                <th class="px-6 py-4 text-sm font-semibold">
+                                    Student
+                                </th>
+
+                                <th class="px-6 py-4 text-sm font-semibold">
+                                    Roll No.
+                                </th>
+
+                                <th class="px-6 py-4 text-sm font-semibold">
+                                    Subject
+                                </th>
+
+                                <th class="px-6 py-4 text-sm font-semibold">
+                                    File
+                                </th>
+
+                                <th class="px-6 py-4 text-sm font-semibold">
+                                    Status
+                                </th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% if answer_sheets %}
+
+                                {% for sheet in answer_sheets %}
+
+                                <tr class="border-t">
+
+                                    <td class="px-6 py-4">
+                                        {{ sheet[0] }}
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        {{ sheet[1] }}
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        {{ sheet[2] }}
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        {{ sheet[3] }}
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        {{ sheet[4] }}
+                                    </td>
+
+                                    <td class="px-6 py-4">
+                                        {{ sheet[6] }}
+                                    </td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <tr>
+                                    <td colspan="6"
+                                        class="text-center py-8 text-gray-500">
+                                        No answer sheets uploaded yet.
+                                    </td>
+                                </tr>
+
+                            {% endif %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

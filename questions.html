@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Exam Questions</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Header -->
+    <div class="bg-gray-950 text-white px-6 py-5">
+
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+
+            <div>
+                <h1 class="text-2xl font-bold">
+                    AI Exam System
+                </h1>
+
+                <p class="text-gray-400 text-sm">
+                    University Portal
+                </p>
+            </div>
+
+            <a href="/university-dashboard"
+               class="bg-white text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-200">
+                Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main -->
+    <div class="max-w-6xl mx-auto px-6 py-8">
+
+        <h2 class="text-3xl font-bold text-gray-900">
+            Exam Questions
+        </h2>
+
+        <p class="text-gray-500 mt-1 mb-8">
+            Add questions, maximum marks and model answers.
+        </p>
+
+
+        <!-- Add Question Form -->
+        <div class="bg-white border rounded-2xl shadow-sm p-6 mb-8">
+
+            <h3 class="text-xl font-semibold mb-5">
+                Add New Question
+            </h3>
+
+            <form method="POST">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                    <!-- Subject -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">
+                            Subject
+                        </label>
+
+                        <input
+                            type="text"
+                            name="subject"
+                            placeholder="e.g. Python"
+                            required
+                            class="w-full border rounded-lg px-4 py-3">
+                    </div>
+
+
+                    <!-- Maximum Marks -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">
+                            Maximum Marks
+                        </label>
+
+                        <input
+                            type="number"
+                            name="max_marks"
+                            placeholder="e.g. 5"
+                            min="1"
+                            required
+                            class="w-full border rounded-lg px-4 py-3">
+                    </div>
+
+                </div>
+
+
+                <!-- Question -->
+                <div class="mt-5">
+
+                    <label class="block text-sm font-medium mb-2">
+                        Question
+                    </label>
+
+                    <textarea
+                        name="question_text"
+                        rows="3"
+                        placeholder="Enter the exam question..."
+                        required
+                        class="w-full border rounded-lg px-4 py-3"></textarea>
+
+                </div>
+
+
+                <!-- Model Answer -->
+                <div class="mt-5">
+
+                    <label class="block text-sm font-medium mb-2">
+                        Model Answer / Marking Scheme
+                    </label>
+
+                    <textarea
+                        name="model_answer"
+                        rows="4"
+                        placeholder="Enter the expected answer or marking points..."
+                        class="w-full border rounded-lg px-4 py-3"></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="mt-5 bg-gray-950 text-white px-6 py-3 rounded-lg hover:bg-gray-800">
+                    Add Question
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Questions List -->
+        <div class="bg-white border rounded-2xl shadow-sm overflow-hidden">
+
+            <div class="p-6 border-b">
+
+                <h3 class="text-xl font-semibold">
+                    Added Questions
+                </h3>
+
+            </div>
+
+
+            {% if questions %}
+
+            <div class="divide-y">
+
+                {% for question in questions %}
+
+                <div class="p-6">
+
+                    <div class="flex justify-between gap-6">
+
+                        <div>
+
+                            <p class="text-sm text-gray-500">
+                                {{ question[1] }}
+                            </p>
+
+                            <h4 class="text-lg font-semibold mt-1">
+                                Q{{ loop.index }}. {{ question[2] }}
+                            </h4>
+
+                            {% if question[4] %}
+                            <p class="text-gray-600 mt-3">
+                                <strong>Model Answer:</strong>
+                                {{ question[4] }}
+                            </p>
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="text-right min-w-[100px]">
+
+                            <p class="text-sm text-gray-500">
+                                Maximum
+                            </p>
+
+                            <p class="text-2xl font-bold">
+                                {{ question[3] }}
+                            </p>
+
+                            <p class="text-sm text-gray-500">
+                                marks
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="p-10 text-center">
+
+                <div class="text-4xl mb-3">
+                    📝
+                </div>
+
+                <h3 class="font-semibold text-lg">
+                    No questions added yet
+                </h3>
+
+                <p class="text-gray-500 mt-1">
+                    Add your first exam question above.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

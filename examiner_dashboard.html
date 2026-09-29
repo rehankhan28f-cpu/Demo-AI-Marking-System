@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Examiner Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-950 text-white hidden md:flex flex-col">
+
+        <div class="px-6 py-6">
+            <h1 class="text-xl font-bold">
+                AI Exam System
+            </h1>
+
+            <p class="text-gray-400 text-sm mt-1">
+                Examiner Portal
+            </p>
+        </div>
+
+        <nav class="px-4 space-y-2">
+
+            <a href="/examiner-dashboard"
+               class="block px-4 py-3 rounded-lg bg-gray-800">
+                🏠 Dashboard
+            </a>
+
+            <a href="/assigned-copies"
+               class="block px-4 py-3 rounded-lg hover:bg-gray-800">
+                📄 Assigned Copies
+            </a>
+
+            <a href="/completed-copies"
+               class="block px-4 py-3 rounded-lg hover:bg-gray-800">
+                ✅ Completed
+            </a>
+
+        </nav>
+
+        <div class="mt-auto px-4 py-6">
+
+            <a href="/"
+               class="block px-4 py-3 rounded-lg hover:bg-gray-800">
+                ↪ Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="flex-1">
+
+        <!-- Header -->
+        <header class="bg-white border-b px-6 py-4">
+
+            <h2 class="text-xl font-semibold">
+                Examiner Dashboard
+            </h2>
+
+            <p class="text-gray-500 text-sm">
+                View and evaluate your assigned answer sheets
+            </p>
+
+        </header>
+
+
+        <!-- Content -->
+        <section class="p-6">
+
+            <!-- Welcome -->
+            <div class="bg-gray-900 text-white rounded-2xl p-6 mb-6">
+
+                <p class="text-gray-400">
+                    Welcome Back
+                </p>
+
+                <h1 class="text-3xl font-bold mt-1">
+                    Examiner
+                </h1>
+
+                <p class="text-gray-300 mt-2">
+                    Check assigned answer sheets and submit marks.
+                </p>
+
+            </div>
+
+
+            <!-- Stats -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                <div class="bg-white rounded-2xl p-6 border shadow-sm">
+
+                    <p class="text-gray-500 text-sm">
+                        Assigned Copies
+                    </p>
+
+                    <h2 class="text-3xl font-bold mt-2">
+                        0
+                    </h2>
+
+                </div>
+
+
+                <div class="bg-white rounded-2xl p-6 border shadow-sm">
+
+                    <p class="text-gray-500 text-sm">
+                        Pending Evaluation
+                    </p>
+
+                    <h2 class="text-3xl font-bold mt-2">
+                        0
+                    </h2>
+
+                </div>
+
+
+                <div class="bg-white rounded-2xl p-6 border shadow-sm">
+
+                    <p class="text-gray-500 text-sm">
+                        Completed
+                    </p>
+
+                    <h2 class="text-3xl font-bold mt-2">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <!-- Quick Action -->
+            <div class="bg-white rounded-2xl p-6 border shadow-sm mt-6">
+
+                <h2 class="text-lg font-semibold">
+                    Quick Action
+                </h2>
+
+                <p class="text-gray-500 mt-1 mb-5">
+                    Start evaluating your assigned answer sheets.
+                </p>
+
+                <a href="/assigned-copies"
+                   class="inline-block bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800">
+                    View Assigned Copies
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

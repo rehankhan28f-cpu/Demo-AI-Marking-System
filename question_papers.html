@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Question Papers</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Header -->
+    <div class="bg-gray-950 text-white px-6 py-5">
+
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+
+            <div>
+                <h1 class="text-2xl font-bold">
+                    AI Exam System
+                </h1>
+
+                <p class="text-gray-400 text-sm">
+                    University Portal
+                </p>
+            </div>
+
+            <a href="/university-dashboard"
+               class="bg-white text-gray-900 px-4 py-2 rounded-lg">
+                Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main -->
+    <div class="max-w-6xl mx-auto px-6 py-8">
+
+        <h2 class="text-3xl font-bold">
+            Question Papers
+        </h2>
+
+        <p class="text-gray-500 mt-1 mb-8">
+            Upload examination question papers for AI processing.
+        </p>
+
+
+        <!-- Upload Box -->
+        <div class="bg-white border rounded-2xl shadow-sm p-6 mb-8">
+
+            <h3 class="text-xl font-semibold mb-5">
+                Upload Question Paper
+            </h3>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                    <!-- Subject -->
+                    <div>
+
+                        <label class="block text-sm font-medium mb-2">
+                            Subject
+                        </label>
+
+                        <input
+                            type="text"
+                            name="subject"
+                            placeholder="e.g. Python"
+                            required
+                            class="w-full border rounded-lg px-4 py-3">
+
+                    </div>
+
+
+                    <!-- File -->
+                    <div>
+
+                        <label class="block text-sm font-medium mb-2">
+                            Question Paper PDF / Image
+                        </label>
+
+                        <input
+                            type="file"
+                            name="question_paper"
+                            accept=".pdf,.png,.jpg,.jpeg"
+                            required
+                            class="w-full border rounded-lg px-4 py-3 bg-white">
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="mt-5 bg-gray-950 text-white px-6 py-3 rounded-lg hover:bg-gray-800">
+
+                    Upload Question Paper
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Uploaded Papers List -->
+        <div class="bg-white border rounded-2xl shadow-sm">
+
+            <div class="p-6 border-b">
+
+                <h3 class="text-xl font-semibold">
+                    Uploaded Papers
+                </h3>
+
+                <p class="text-gray-500 text-sm mt-1">
+                    Question papers uploaded by the university.
+                </p>
+
+            </div>
+
+
+            {% if papers %}
+
+                <div class="divide-y">
+
+                    {% for paper in papers %}
+
+                    <div class="p-5 flex justify-between items-center">
+
+                        <div>
+
+                            <h4 class="font-semibold text-gray-900">
+                                {{ paper[1] }}
+                            </h4>
+
+                            <p class="text-gray-500 text-sm mt-1">
+                                📄 {{ paper[2] }}
+                            </p>
+
+                        </div>
+
+
+                        <div class="text-right">
+
+                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-sm">
+                                {{ paper[3] }}
+                            </span>
+
+                            <a href="/process-question-paper/{{ paper[0] }}"
+                            class="block mt-3 bg-gray-950 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800">
+
+                                Process with AI
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="p-10 text-center">
+
+                    <div class="text-4xl mb-3">
+                        📄
+                    </div>
+
+                    <h3 class="font-semibold text-lg">
+                        No question papers uploaded
+                    </h3>
+
+                    <p class="text-gray-500 mt-1">
+                        Upload a PDF or image above.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

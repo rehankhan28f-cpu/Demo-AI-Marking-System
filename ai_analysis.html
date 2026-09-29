@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Analysis</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white border-b px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+
+            <div>
+                <h1 class="text-xl font-bold text-gray-900">
+                    AI Exam Evaluation
+                </h1>
+
+                <p class="text-sm text-gray-500">
+                    AI-assisted answer analysis
+                </p>
+            </div>
+
+            <a href="/open-copy/{{ copy_id }}"
+               class="border px-4 py-2 rounded-lg text-sm hover:bg-gray-100">
+                ← Back to Copy
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- Main -->
+   <main class="max-w-7xl mx-auto p-6">
+
+    <!-- Header -->
+    <div class="bg-white border rounded-xl p-5 mb-6">
+
+        <div class="flex justify-between items-center">
+
+            <div>
+                <h2 class="text-xl font-bold text-gray-900">
+                    On-Screen Evaluation
+                </h2>
+
+                <p class="text-sm text-gray-500 mt-1">
+                    Answer Sheet ID: {{ copy_id }}
+                </p>
+            </div>
+
+            <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">
+                AI Assisted
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main Evaluation Area -->
+
+    <div class="grid lg:grid-cols-2 gap-6">
+
+        <!-- LEFT: Original Answer Sheet -->
+
+        <div class="bg-white border rounded-xl overflow-hidden">
+
+            <div class="border-b px-5 py-4">
+
+                <h2 class="font-semibold">
+                    Original Answer Sheet
+                </h2>
+
+                <p class="text-sm text-gray-500 mt-1">
+                    Examiner can view the original scanned copy.
+                </p>
+
+            </div>
+
+            <div class="p-3 bg-gray-50">
+
+                <iframe
+                    src="/uploads/{{ filename }}"
+                    class="w-full h-[750px] rounded-lg border bg-white">
+                </iframe>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT: AI Analysis -->
+
+        <div class="space-y-5">
+
+            {% for question in questions %}
+
+            <div class="bg-white border rounded-xl p-5">
+
+                <!-- Question -->
+
+                <div class="flex justify-between gap-4">
+
+                    <div>
+
+                        <p class="text-xs text-gray-500 uppercase">
+                            Question {{ loop.index }}
+                        </p>
+
+                        <h3 class="font-semibold text-lg mt-1">
+                            {{ question[1] }}
+                        </h3>
+
+                    </div>
+
+                    <span class="bg-gray-100 px-3 py-1 rounded-lg text-sm h-fit whitespace-nowrap">
+                        Max {{ question[2] }}
+                    </span>
+
+                </div>
+
+
+                <!-- Model Answer -->
+
+                <div class="bg-gray-50 border rounded-lg p-4 mt-5">
+
+                    <p class="text-sm font-semibold">
+                        Model Answer
+                    </p>
+
+                    <p class="text-sm text-gray-600 mt-2">
+                        {{ question[3] if question[3] else "Model answer not available." }}
+                    </p>
+
+                </div>
+
+
+                <!-- Student Answer -->
+
+                <div class="border rounded-lg p-4 mt-4">
+
+                <p class="text-sm font-semibold">
+                    Student Answer
+                </p>
+
+                <div class="bg-gray-50 border rounded-lg p-4 mt-3">
+
+                    <p class="text-sm text-gray-500">
+                        Handwritten answer detected
+                    </p>
+
+                    <p class="text-sm text-gray-700 mt-2">
+                        The original handwritten answer is available
+                        in the answer sheet on the left.
+                    </p>
+
+                </div>
+
+</div>
+
+                </div>
+
+
+                <!-- AI Suggestion -->
+
+                <div class="bg-gray-950 text-white rounded-xl p-4 mt-4">
+
+                    <div class="flex justify-between items-center">
+
+                        <div>
+                            <p class="font-semibold">
+                                🤖 AI Suggested Marks
+                            </p>
+
+                            <p class="text-gray-400 text-sm mt-1">
+                                AI suggestion for examiner review
+                            </p>
+                        </div>
+
+                        <div class="text-2xl font-bold">
+                            {{ suggested_marks }} / {{ question[2] }}
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        onclick="acceptMarks({{ suggested_marks }})"
+                        class="w-full bg-white text-black py-2 rounded-lg mt-4 font-semibold hover:bg-gray-200">
+                        Accept Suggestion
+                    </button>
+
+                </div>
+
+                <!-- Examiner Decision -->
+
+                <div class="mt-4">
+
+                    <label class="text-sm font-semibold">
+                        Final Marks
+                    </label>
+
+                    <div class="flex gap-3 mt-2">
+
+                        <input
+                            type="number"
+                            min="0"
+                            max="{{ question[2] }}"
+                            value="0"
+                            class="border rounded-lg p-3 w-28">
+
+                        <button
+                            type="button"
+                            class="bg-gray-900 text-white px-5 py-3 rounded-lg hover:bg-gray-700">
+
+                            Accept
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</main>
+<script>
+function acceptMarks(marks) {
+
+    const finalMarks = document.getElementById("finalMarks");
+
+    if (finalMarks) {
+        finalMarks.value = marks;
+    }
+}
+</script>
+</body>
+</html>

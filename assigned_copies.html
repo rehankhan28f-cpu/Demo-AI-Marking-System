@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Assigned Copies</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-gray-950 text-white px-6 py-5">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+
+            <div>
+                <h1 class="text-xl font-bold">
+                    AI Exam System
+                </h1>
+
+                <p class="text-gray-400 text-sm">
+                    Examiner Portal
+                </p>
+            </div>
+
+            <a href="/examiner-dashboard"
+               class="bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700">
+                Dashboard
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- Main -->
+    <main class="max-w-6xl mx-auto p-6">
+
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold">
+                Assigned Answer Sheets
+            </h2>
+
+            <p class="text-gray-500 mt-1">
+                View answer sheets assigned to you for evaluation.
+            </p>
+        </div>
+
+
+        <!-- Copy Card -->
+        <div class="bg-white rounded-2xl border shadow-sm p-6">
+
+            <div class="flex justify-between items-center mb-5">
+
+                <div>
+                    <h3 class="text-lg font-semibold">
+                        Assigned Copies
+                    </h3>
+
+                    <p class="text-gray-500 text-sm">
+                        Your pending evaluation work
+                    </p>
+                </div>
+
+                <span class="bg-gray-100 px-4 py-2 rounded-lg text-sm">
+                    Pending
+                </span>
+
+            </div>
+
+
+            {% if copies %}
+
+    <div class="space-y-4">
+
+        {% for copy in copies %}
+
+        <div class="border rounded-xl p-5 bg-gray-50">
+
+            <div class="flex justify-between items-center">
+
+                <div>
+                    <h3 class="text-lg font-semibold">
+                        Student: {{ copy[1] }}
+                    </h3>
+
+                    <p class="text-gray-500">
+                        Roll No: {{ copy[2] }}
+                    </p>
+
+                    <p class="text-gray-500">
+                        Subject: {{ copy[3] }}
+                    </p>
+                </div>
+
+                <div class="text-right">
+
+                    <span class="bg-yellow-100 px-3 py-1 rounded-lg text-sm">
+                        {{ copy[5] }}
+                    </span>
+
+                    <br>
+
+                    <a
+                        href="/open-copy/{{ copy[0] }}"
+                        class="inline-block mt-3 bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-700">
+                        Open Copy
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+{% else %}
+
+    <div class="border rounded-xl p-10 text-center">
+
+        <div class="text-4xl mb-3">📄</div>
+
+        <h3 class="text-lg font-semibold">
+            No assigned copies yet
+        </h3>
+
+        <p class="text-gray-500 mt-1">
+            Assigned answer sheets will appear here.
+        </p>
+
+    </div>
+
+{% endif %}
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

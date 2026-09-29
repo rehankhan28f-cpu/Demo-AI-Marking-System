@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Evaluation System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #111111;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo {
+            font-size: 34px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-size: 16px;
+            padding: 29px 5px;
+        }
+
+        .nav-links a.active {
+            color: #111;
+            border-bottom: 3px solid #111;
+        }
+
+        .nav-login {
+            background: #111;
+            color: white !important;
+            padding: 12px 22px !important;
+            border-radius: 18px;
+            border: none !important;
+        }
+
+        .arrow {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 78px 20px 45px;
+        }
+
+        .tagline {
+            font-size: 17px;
+            letter-spacing: 3px;
+            color: #555;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            line-height: 1.12;
+            font-weight: 750;
+            max-width: 850px;
+            margin: auto;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            line-height: 1.6;
+            color: #555;
+            max-width: 650px;
+            margin: 25px auto 0;
+        }
+
+
+        /* ================= DEPARTMENT CARDS ================= */
+
+        .departments {
+            position: relative;
+            z-index: 4;
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            padding: 15px 20px 70px;
+        }
+
+        .card {
+            width: 455px;
+            min-height: 425px;
+            border: 1px solid #cfcfcf;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.95);
+            text-align: center;
+            padding: 38px 35px;
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        .icon-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: #f1f1f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 60px;
+        }
+
+        .card h2 {
+            font-size: 28px;
+            margin-bottom: 22px;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.5;
+            max-width: 330px;
+            margin: 0 auto 30px;
+        }
+
+        .card-login {
+            display: inline-block;
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            padding: 13px 32px;
+            border-radius: 22px;
+            font-size: 17px;
+            transition: 0.2s;
+        }
+
+        .card-login:hover {
+            background: #333;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        footer::before,
+        footer::after {
+            content: "";
+            width: 100px;
+            height: 1px;
+            background: #d5d5d5;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .hero h1 {
+                font-size: 44px;
+            }
+
+            .departments {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: min(455px, 92%);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .logo {
+                font-size: 27px;
+            }
+
+            .nav-links a:not(.nav-login) {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 55px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+                letter-spacing: -1px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .tagline {
+                font-size: 13px;
+            }
+
+            .card {
+                min-height: 390px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <div class="brand">
+            <span class="logo">🎓</span>
+            <span>AI Evaluation System</span>
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/" class="active">
+                Home
+            </a>
+
+            <a href="#">
+                About
+            </a>
+
+            <a href="/login" class="nav-login">
+                Login <span class="arrow">→</span>
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="tagline">
+            Smarter Evaluation &nbsp; | &nbsp; Fairer Results
+        </div>
+
+        <h1>
+            AI-Based Answer Sheet
+            <br>
+            Evaluation System
+        </h1>
+
+        <p>
+            Automating evaluation and assignment for a more
+            efficient and transparent academic process.
+        </p>
+
+    </section>
+
+
+    <!-- ================= DEPARTMENTS ================= -->
+
+    <section class="departments">
+
+
+        <!-- EXAMINER -->
+
+        <div class="card">
+
+            <div class="icon-circle">
+                👤
+            </div>
+
+            <h2>
+                Examiner Department
+            </h2>
+
+            <p>
+                Login and evaluate assigned answer
+                sheets with AI assistance.
+            </p>
+
+            <a href="/examiner-login" class="card-login">
+                Login &nbsp; →
+            </a>
+
+        </div>
+
+
+        <!-- UNIVERSITY -->
+
+        <div class="card">
+
+            <div class="icon-circle">
+                🏛️
+            </div>
+
+            <h2>
+                University Department
+            </h2>
+
+            <p>
+                Manage subjects, assign teachers
+                and track progress.
+            </p>
+
+            <a href="/university-login" class="card-login">
+                Login &nbsp; →
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+        <span>AI Evaluation System &nbsp; </span>
+    </footer>
+
+
+</body>
+</html>

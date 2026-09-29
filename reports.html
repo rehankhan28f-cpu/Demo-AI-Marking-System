@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports - AI Exam System</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Header -->
+    <header class="bg-white border-b">
+        <div class="max-w-7xl mx-auto px-6 py-5">
+
+            <div class="flex justify-between items-center">
+
+                <div>
+                    <h1 class="text-2xl font-bold">
+                        Reports
+                    </h1>
+
+                    <p class="text-sm text-gray-500 mt-1">
+                        Examination evaluation progress
+                    </p>
+                </div>
+
+                <a
+                    href="/university-dashboard"
+                    class="bg-gray-950 text-white px-4 py-2 rounded-lg text-sm">
+                    ← Dashboard
+                </a>
+
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- Main -->
+    <main class="max-w-7xl mx-auto p-6">
+
+        <!-- Statistics -->
+        <div class="grid md:grid-cols-4 gap-5">
+
+            <!-- Total -->
+            <div class="bg-white border rounded-xl p-5">
+                <p class="text-sm text-gray-500">
+                    Total Answer Sheets
+                </p>
+
+                <p class="text-3xl font-bold mt-2">
+                    {{ total_copies }}
+                </p>
+            </div>
+
+
+            <!-- Pending -->
+            <div class="bg-white border rounded-xl p-5">
+                <p class="text-sm text-gray-500">
+                    Pending
+                </p>
+
+                <p class="text-3xl font-bold mt-2">
+                    {{ pending_copies }}
+                </p>
+            </div>
+
+
+            <!-- Evaluated -->
+            <div class="bg-white border rounded-xl p-5">
+                <p class="text-sm text-gray-500">
+                    Evaluated
+                </p>
+
+                <p class="text-3xl font-bold mt-2">
+                    {{ evaluated_copies }}
+                </p>
+            </div>
+
+
+            <!-- Completed -->
+            <div class="bg-white border rounded-xl p-5">
+                <p class="text-sm text-gray-500">
+                    Completed
+                </p>
+
+                <p class="text-3xl font-bold mt-2">
+                    {{ completed_copies }}
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Progress -->
+        <div class="bg-white border rounded-xl p-6 mt-6">
+
+            <h2 class="text-lg font-semibold">
+                Evaluation Progress
+            </h2>
+
+            <p class="text-sm text-gray-500 mt-1">
+                Current status of answer-sheet evaluation
+            </p>
+
+
+            <div class="mt-6">
+
+                <div class="flex justify-between text-sm mb-2">
+                    <span>Completed</span>
+
+                    <span>
+                        {{ completed_copies }} / {{ total_copies }}
+                    </span>
+                </div>
+
+
+                <div class="w-full bg-gray-200 rounded-full h-3">
+
+                    {% if total_copies > 0 %}
+
+                        {% set progress =
+                            (completed_copies / total_copies * 100)
+                            | round(0)
+                        %}
+
+                    {% else %}
+
+                        {% set progress = 0 %}
+
+                    {% endif %}
+
+                    <div
+                        class="bg-gray-950 h-3 rounded-full"
+                        style="width: {{ progress }}%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Subject-wise Progress -->
+        <div class="bg-white border rounded-xl p-6 mt-6">
+
+            <h2 class="text-lg font-semibold">
+                Subject-wise Evaluation
+            </h2>
+
+            <p class="text-sm text-gray-500 mt-1">
+                Evaluation progress by subject
+            </p>
+
+            <div class="overflow-x-auto mt-5">
+
+                <table class="w-full text-sm">
+
+                    <thead>
+                        <tr class="border-b text-left">
+
+                            <th class="py-3 px-2">
+                                Subject
+                            </th>
+
+                            <th class="py-3 px-2">
+                                Total
+                            </th>
+
+                            <th class="py-3 px-2">
+                                Evaluated
+                            </th>
+
+                            <th class="py-3 px-2">
+                                Completed
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for row in subject_progress %}
+
+                        <tr class="border-b">
+
+                            <td class="py-3 px-2 font-medium">
+                                {{ row[0] }}
+                            </td>
+
+                            <td class="py-3 px-2">
+                                {{ row[1] }}
+                            </td>
+
+                            <td class="py-3 px-2">
+                                {{ row[2] }}
+                            </td>
+
+                            <td class="py-3 px-2">
+                                {{ row[3] }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <!-- Examiner-wise Progress -->
+        <div class="bg-white border rounded-xl p-6 mt-6">
+
+            <h2 class="text-lg font-semibold">
+                Examiner-wise Evaluation
+            </h2>
+
+            <p class="text-sm text-gray-500 mt-1">
+                Evaluation progress by examiner
+            </p>
+
+            <div class="overflow-x-auto mt-5">
+
+                <table class="w-full text-sm">
+
+                    <thead>
+                        <tr class="border-b text-left">
+
+                            <th class="py-3 px-2">
+                                Examiner
+                            </th>
+
+                            <th class="py-3 px-2">
+                                Assigned
+                            </th>
+
+                            <th class="py-3 px-2">
+                                Evaluated
+                            </th>
+
+                            <th class="py-3 px-2">
+                                Completed
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for row in examiner_progress %}
+
+                        <tr class="border-b">
+
+                            <td class="py-3 px-2 font-medium">
+                                {{ row[0] }}
+                            </td>
+
+                            <td class="py-3 px-2">
+                                {{ row[1] }}
+                            </td>
+
+                            <td class="py-3 px-2">
+                                {{ row[2] }}
+                            </td>
+
+                            <td class="py-3 px-2">
+                                {{ row[3] }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

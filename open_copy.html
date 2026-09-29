@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Open Answer Sheet</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="min-h-screen">
+
+    <header class="bg-gray-950 text-white px-6 py-5">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+
+            <div>
+                <h1 class="text-xl font-bold">
+                    AI Exam System
+                </h1>
+
+                <p class="text-gray-400 text-sm">
+                    Examiner Portal
+                </p>
+            </div>
+
+            <a href="/assigned-copies"
+               class="bg-gray-800 px-4 py-2 rounded-lg">
+                Back
+            </a>
+
+        </div>
+    </header>
+
+
+    <main class="max-w-6xl mx-auto p-6">
+
+        <h2 class="text-2xl font-bold mb-6">
+            Evaluate Answer Sheet
+        </h2>
+
+
+        <div class="bg-white rounded-2xl border shadow-sm p-6">
+
+            <h3 class="text-xl font-semibold mb-4">
+                Student Details
+            </h3>
+            <p class="text-red-600 font-bold">
+                Answer Sheet ID: {{ copy[0] }}
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                <div>
+                    <p class="text-gray-500 text-sm">
+                        Student Name
+                    </p>
+
+                    <p class="font-semibold">
+                        {{ copy[1] }}
+                    </p>
+                </div>
+
+
+                <div>
+                    <p class="text-gray-500 text-sm">
+                        Roll Number
+                    </p>
+
+                    <p class="font-semibold">
+                        {{ copy[2] }}
+                    </p>
+                </div>
+
+
+                <div>
+                    <p class="text-gray-500 text-sm">
+                        Subject
+                    </p>
+
+                    <p class="font-semibold">
+                        {{ copy[3] }}
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        
+                        <!-- Answer Sheet + Evaluation -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+
+                <!-- Answer Sheet - Left -->
+                <div class="lg:col-span-2 bg-white rounded-2xl border shadow-sm p-4">
+
+                    <h3 class="text-lg font-semibold mb-4">
+                        Answer Sheet
+                    </h3>
+
+                    <iframe
+                        src="/uploads/{{ copy[4] }}"
+                        class="w-full h-[750px] rounded-lg border bg-gray-50">
+                    </iframe>
+
+                </div>
+
+
+                <!-- Evaluation Panel - Right -->
+                <!-- Evaluation Panel - Right -->
+            <div class="bg-white rounded-2xl border shadow-sm p-5">
+
+                <!-- SAVE EVALUATION FORM -->
+                <form method="POST" action="/save-evaluation/{{ copy[0] }}">
+
+                    <h3 class="text-xl font-semibold mb-5">
+                        Evaluation
+                    </h3>
+
+                    <div class="space-y-4">
+
+                        {% for question in questions %}
+
+                        <div class="bg-gray-50 border rounded-lg p-4 mb-4">
+
+                            <div class="flex justify-between items-center mb-3">
+
+                                <h3 class="font-semibold text-lg">
+                                    Q{{ loop.index }}. {{ question[1] }}
+                                </h3>
+
+                                <span class="text-sm bg-white px-3 py-1 rounded-lg border">
+                                    Max: {{ question[2] }}
+                                </span>
+
+                            </div>
+
+                            <label class="block text-sm font-medium mb-2">
+                                Marks Awarded
+                            </label>
+
+                            <input
+                                type="number"
+                                name="q{{ loop.index }}_marks"
+                                min="0"
+                                max="{{ question[2] }}"
+                                class="w-full border rounded-lg p-3"
+                                placeholder="Enter marks">
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- Total Marks -->
+                    <div class="border-t mt-5 pt-5">
+
+                        <p class="text-gray-500 text-sm">
+                            Total Marks
+                        </p>
+
+                        <p class="text-2xl font-bold mt-1">
+                            {{ evaluation[3] if evaluation else 0 }} / {{ total_max_marks }}
+                        </p>
+
+                    </div>
+
+                    <!-- SAVE BUTTON -->
+                    <button
+                        type="submit"
+                        class="w-full bg-gray-950 text-white py-3 rounded-lg mt-5 hover:bg-gray-800">
+                        Save Evaluation
+                    </button>
+
+                </form>
+
+
+                <!-- FINAL SUBMIT FORM -->
+                <form method="POST" action="/finalize-evaluation/{{ copy[0] }}">
+
+                    <button
+                        type="submit"
+                        class="w-full bg-gray-950 text-white py-3 rounded-lg mt-5 font-semibold hover:bg-gray-800">
+                        ✓ Final Submit Evaluation
+                    </button>
+
+                </form>
+
+
+                <!-- AI SECTION -->
+                <div class="bg-gray-50 border rounded-xl p-4 mt-5">
+
+                    <p class="font-semibold">
+                        AI Suggested Marks
+                    </p>
+
+                    <p class="text-gray-500 text-sm mt-1">
+                        AI can analyze the answer and suggest marks.
+                    </p>
+
+                    <a
+                        href="/analyze-ai/{{ copy[0] }}"
+                        class="block w-full text-center bg-gray-800 text-white py-2 rounded-lg mt-4 hover:bg-gray-700">
+                        🤖 Analyze with AI
+                    </a>
+                </div>
+
+                <!-- Copy Navigation -->
+                <div class="flex gap-3 mt-6">
+
+                    <a
+                        href="/previous-copy/{{ copy[0] }}"
+                        class="flex-1 text-center bg-gray-200 text-gray-900 py-3 rounded-lg font-semibold hover:bg-gray-300">
+                        ← Previous Copy
+                    </a>
+
+                    <a
+                        href="/next-copy/{{ copy[0] }}"
+                        class="flex-1 text-center bg-gray-950 text-white py-3 rounded-lg font-semibold hover:bg-gray-800">
+                        Next Copy →
+                    </a>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

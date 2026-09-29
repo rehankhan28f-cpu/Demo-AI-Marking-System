@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Completed Copies</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Header -->
+    <div class="bg-gray-950 text-white px-6 py-5">
+
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+
+            <div>
+                <h1 class="text-2xl font-bold">
+                    AI Exam System
+                </h1>
+
+                <p class="text-gray-400 text-sm">
+                    Examiner Portal
+                </p>
+            </div>
+
+            <a
+                href="/examiner-dashboard"
+                class="bg-white text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-200">
+                Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-6 py-8">
+
+        <div class="mb-6">
+
+            <h2 class="text-3xl font-bold text-gray-900">
+                Completed Copies
+            </h2>
+
+            <p class="text-gray-500 mt-1">
+                Answer sheets evaluated by you.
+            </p>
+
+        </div>
+
+
+        {% if completed %}
+
+        <div class="space-y-4">
+
+            {% for copy in completed %}
+
+            <div class="bg-white border rounded-2xl p-5 shadow-sm">
+
+                <div class="flex justify-between items-center">
+
+                    <div>
+
+                        <h3 class="text-lg font-semibold text-gray-900">
+                            {{ copy[1] }}
+                        </h3>
+
+                        <p class="text-gray-500">
+                            Roll No: {{ copy[2] }}
+                        </p>
+
+                        <p class="text-gray-500">
+                            Subject: {{ copy[3] }}
+                        </p>
+
+                    </div>
+
+
+                    <div class="text-right">
+
+                        <p class="text-sm text-gray-500">
+                            Total Marks
+                        </p>
+
+                        <p class="text-2xl font-bold text-gray-900">
+                            {{ copy[4] }}
+                        </p>
+
+                        <span class="inline-block mt-2 bg-green-100 text-green-700 px-3 py-1 rounded-lg text-sm">
+                            Evaluated
+                        </span>
+
+                        <a
+                            href="/view-evaluation/{{ copy[0] }}"
+                            class="inline-block mt-3 bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-700">
+                            View Evaluation
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        {% else %}
+
+        <div class="bg-white border rounded-2xl p-12 text-center">
+
+            <div class="text-5xl mb-4">
+                ✅
+            </div>
+
+            <h3 class="text-xl font-semibold">
+                No completed copies
+            </h3>
+
+            <p class="text-gray-500 mt-2">
+                Evaluated answer sheets will appear here.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
